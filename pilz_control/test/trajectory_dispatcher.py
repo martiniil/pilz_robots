@@ -42,7 +42,7 @@ class TrajectoryDispatcher:
         timeout = rospy.Duration(self.WAIT_FOR_SERVICE_TIMEOUT_S)
         self._client.wait_for_server(timeout)
 
-    def dispatch_single_point_trajectory(self, goal_position, goal_velocity=[],
+    def dispatch_single_point_trajectory(self, goal_position, goal_velocity=[], goal_acceleration=[],
                                          time_from_start=DEFAULT_TRAJECTORY_DURATION_S):
         """Sends a simple JointTrajectory to the action client.
 
@@ -58,6 +58,7 @@ class TrajectoryDispatcher:
         point = JointTrajectoryPoint()
         point.positions = goal_position
         point.velocities = goal_velocity
+        point.accelerations = goal_acceleration
         point.time_from_start = rospy.Duration(time_from_start)
 
         goal = FollowJointTrajectoryGoal()
